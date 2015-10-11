@@ -13,7 +13,7 @@ public class MoveController : MonoBehaviour
     public bool jumpControl = true;
     public float xTurn;
     public float inputScaler=1f;
-    private bool left, down;
+    public CameraControl playerCamera;
     public bool speedLimte = false;
     private Vector3 mc_localRotation;
     [HideInInspector]
@@ -38,7 +38,9 @@ public class MoveController : MonoBehaviour
         {
             if (!Input.GetMouseButton(0))
             {
-                xTurn += Input.GetAxis("Mouse X") * inputScaler;
+                //can add a componet here for lightning
+                if(playerCamera.mouseLock)
+                    xTurn += Input.GetAxis("Mouse X") * inputScaler;
             }
             mc_localRotation.y = xTurn;
             Vector3 target = new Vector3(0f, 0f, 0f);
@@ -47,25 +49,25 @@ public class MoveController : MonoBehaviour
             if (Input.GetKey(KeyCode.A))
             {
                 dir = Direction.LEFT;   
-                left = true;
+ 
                 nx = -acc;
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 dir = Direction.RIGHT;
-                left = false;
+ 
                 nx = acc;
             }
             if (Input.GetKey(KeyCode.S))
             {
                 dir = Direction.DOWN;
-                down = true;
+
                 nz = -acc;
             }
             else if (Input.GetKey(KeyCode.W))
             {
                 dir = Direction.FORWARD;
-                down = false;
+   
                 nz = acc;
             }
             if (nx == 0f && nz == 0f)

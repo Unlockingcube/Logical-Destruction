@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//move the class into camera controller later
 public class Pivot : MonoBehaviour {
     private float turn;
     public float turnSpeed=1;
@@ -12,11 +13,9 @@ public class Pivot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             turn += Input.GetAxis("Mouse X")*turnSpeed;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
         else
         {

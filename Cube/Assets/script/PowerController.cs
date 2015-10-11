@@ -6,6 +6,7 @@ public class PowerController : MonoBehaviour {
     public Power power;
     public Material[] colors;
     public PhysicMaterial Ice,Normal,Earth;
+    public GameObject pc_Pcamera;
     [HideInInspector]
     public Renderer rend;
     public bool powerSwitch =true;
@@ -23,9 +24,14 @@ public class PowerController : MonoBehaviour {
         playerBody = GetComponent<Rigidbody>();
         power = Power.NORMAL;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Gizmos.DrawSphere(ray.GetPoint(10), 1);
+    }
+    // Update is called once per frame
+    void Update () {
 		if (Input.GetKeyDown(KeyCode.F))
 		{
             PowerToggle(Power.ICE);
@@ -42,6 +48,14 @@ public class PowerController : MonoBehaviour {
 		{
             PowerToggle(Power.EARTH);	
 		}
+
+        if (power == Power.LIGHTNING)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Teleport();
+            }
+        }
 			
 	}
     void PowerToggle(Power tarPow)
@@ -64,6 +78,7 @@ public class PowerController : MonoBehaviour {
         if (power == Power.NORMAL)
         {
             //undo the crap you did in the others basically.
+            playerCamera.mouseLock = true;
             move.immediateStop = true;
             move.control = true;
             rend.material = colors[4];
@@ -95,9 +110,9 @@ public class PowerController : MonoBehaviour {
             }
             else if (power == Power.LIGHTNING)
             {
-                //playerCamera release pivot; later implement
-                move.immediateStop = true;
-                move.control = false;
+                playerCamera.mouseLock = false;
+                //move.immediateStop = true;
+                //move.control = false;
                 rend.material = colors[2];
                 playerBody.mass = 10;
                 playerCollider.material = Normal;
@@ -120,5 +135,15 @@ public class PowerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);   
         powerSwitch = true;
+    }
+    private void Teleport()
+    {
+        Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+        if (!Physics.Raycast(ray.origin, ray.direction, 10))
+        {
+            transform.position = ray.GetPoint(10);
+        }
+        //playerCamera release pivot; later implement
     }
 }
