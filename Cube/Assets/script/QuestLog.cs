@@ -12,6 +12,8 @@ public class QuestLog : MonoBehaviour {
     void OnGUI()
     {
         GUI.Label(new Rect(Screen.width/10, Screen.height/10, 100, 100), questLog[questIndex]);
+        GUI.Label(new Rect(Screen.width / 2, Screen.height / 10, 100, 100), "Teleports: " + PowerController.pc_lightningAmmo);
+        GUI.Label(new Rect(Screen.width / 2, Screen.height / 5, 100, 100)," " +GameObject.Find("Player").GetComponent<PowerController>().power);
     }
 	void Update () {
 	

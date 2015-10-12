@@ -18,6 +18,7 @@ public class MoveController : MonoBehaviour
     private Vector3 mc_localRotation;
     [HideInInspector]
     public bool immediateStop=true;
+    public float vX, vZ;
     // Use this for initialization
     void Start()
     {
@@ -36,6 +37,9 @@ public class MoveController : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         if (control)
         {
+            //
+            //Turn Controller
+            //
             if (!Input.GetMouseButton(0))
             {
                 //can add a componet here for lightning
@@ -43,49 +47,53 @@ public class MoveController : MonoBehaviour
                     xTurn += Input.GetAxis("Mouse X") * inputScaler;
             }
             mc_localRotation.y = xTurn;
+            //Quaternion direction = transform.localRotation;
+            Quaternion direction = Quaternion.Euler(0f, xTurn, 0f);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, direction, .1f);
+            //
+            //Directional Controller
+            //
             Vector3 target = new Vector3(0f, 0f, 0f);
             nx = 0f;
             nz = 0;
             if (Input.GetKey(KeyCode.A))
             {
                 dir = Direction.LEFT;   
- 
                 nx = -acc;
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 dir = Direction.RIGHT;
- 
                 nx = acc;
             }
             if (Input.GetKey(KeyCode.S))
             {
                 dir = Direction.DOWN;
-
                 nz = -acc;
             }
             else if (Input.GetKey(KeyCode.W))
             {
                 dir = Direction.FORWARD;
-   
                 nz = acc;
             }
             if (nx == 0f && nz == 0f)
             {
                 dir = Direction.STOP;
-                //temporary
                 if(immediateStop)
                     GetComponent<Rigidbody>().velocity = new Vector3(0f, GetComponent<Rigidbody>().velocity.y, 0f);
+                //immediateStop should place an acceleration in -value of the velocity till negative.
+                //immdeaite stop should also apply to directions.
             }
             if (nz != 0f && nx != 0f){
-                nz = nz/2;
-                nx = nx/2;
+                //this is a diagonal speed limiter,
+                nz = nz/Mathf.Sqrt(2);
+                nx = nx/Mathf.Sqrt(2);
             }
             target.x = nx;
             target.z = nz;
             //target.y = GetComponent<Rigidbody>().velocity.y;
             target = Quaternion.AngleAxis(xTurn, Vector3.up) * target;
-            float vX, vZ;
+            //float vX, vZ;
             vX = GetComponent<Rigidbody>().velocity.x;
             vZ = GetComponent<Rigidbody>().velocity.z;
             if (vX * vX + vZ * vZ < maxSpeed * maxSpeed)
@@ -95,11 +103,11 @@ public class MoveController : MonoBehaviour
             }
             else
             {
+                //not this controller doesn't limit an object to max speed, it simply stop you form accelerating
                 speedLimte = true;
             }
-            //Quaternion direction = transform.localRotation;
-            Quaternion direction = Quaternion.Euler(0f,xTurn,0f);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation,direction,.1f);
+
+ 
 
 
 

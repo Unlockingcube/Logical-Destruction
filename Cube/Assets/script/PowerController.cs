@@ -6,14 +6,16 @@ public class PowerController : MonoBehaviour {
     public Power power;
     public Material[] colors;
     public PhysicMaterial Ice,Normal,Earth;
-    public GameObject pc_Pcamera;
     [HideInInspector]
     public Renderer rend;
     public bool powerSwitch =true;
-    public CameraControl playerCamera;
+    public GameObject pc_Pcamera;
+    public CameraControl pc_playerCameraController;
     private MoveController move;
     private CapsuleCollider playerCollider;
     private Rigidbody playerBody;
+    public static int pc_lightningAmmo = 100;
+    static int pc_maxLightningAmmo = 100;
     
 	// Use this for initialization
 	void Start () {
@@ -78,7 +80,7 @@ public class PowerController : MonoBehaviour {
         if (power == Power.NORMAL)
         {
             //undo the crap you did in the others basically.
-            playerCamera.mouseLock = true;
+            pc_playerCameraController.mouseLock = true;
             move.immediateStop = true;
             move.control = true;
             rend.material = colors[4];
@@ -91,6 +93,7 @@ public class PowerController : MonoBehaviour {
             if (power == Power.ICE)
             {
                 //toggle something moveController to increase speed etc...
+                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = false;
                 move.control = true;
                 rend.material = colors[0];
@@ -101,6 +104,7 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.FIRE)
             {
                 //enable other crap;
+                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = true;
                 move.control = true;
                 rend.material = colors[1];
@@ -110,9 +114,9 @@ public class PowerController : MonoBehaviour {
             }
             else if (power == Power.LIGHTNING)
             {
-                playerCamera.mouseLock = false;
-                //move.immediateStop = true;
-                //move.control = false;
+                pc_playerCameraController.mouseLock = false;
+                move.immediateStop = true;
+                move.control = true;
                 rend.material = colors[2];
                 playerBody.mass = 10;
                 playerCollider.material = Normal;
@@ -121,6 +125,7 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.EARTH)
             {
                 //maybe apply downward force;
+                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = true;
                 move.control = true;
                 rend.material = colors[3];
@@ -128,22 +133,27 @@ public class PowerController : MonoBehaviour {
                 playerCollider.material = Earth;
             }
             powerSwitch = false;
-            StartCoroutine(PowerSwitch(3f));
+            StartCoroutine(PowerSwitch(3f,Power.NORMAL));
         }
     }
-    public IEnumerator PowerSwitch(float time)
+    public IEnumerator PowerSwitch(float time,Power toggle_power)
     {
+        //expand later to toggle off a power
         yield return new WaitForSeconds(time);   
         powerSwitch = true;
     }
     private void Teleport()
     {
-        Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-        if (!Physics.Raycast(ray.origin, ray.direction, 10))
+        if (pc_lightningAmmo > 0)
         {
-            transform.position = ray.GetPoint(10);
+            Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+            if (!Physics.Raycast(ray.origin, ray.direction, 10))
+            {
+                transform.position = ray.GetPoint(10);
+            }
+            pc_lightningAmmo--;
         }
-        //playerCamera release pivot; later implement
+        //pc_playerCameraController release pivot; later implement
     }
 }
