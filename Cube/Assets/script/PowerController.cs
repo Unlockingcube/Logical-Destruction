@@ -146,12 +146,17 @@ public class PowerController : MonoBehaviour {
     {
         if (pc_lightningAmmo > 0)
         {
+			RaycastHit teleport;
             Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-            if (!Physics.Raycast(ray.origin, ray.direction, 10))
+            if (Physics.Raycast(transform.position, ray.direction,out teleport, 50))
             {
-                transform.position = ray.GetPoint(10);
-            }
+				Vector3 playerOffest = teleport.point;
+				playerOffest.y += 1f;
+                transform.position = playerOffest;
+            }else{
+				transform.position = ray.GetPoint(50);
+			}
             pc_lightningAmmo--;
         }
         //pc_playerCameraController release pivot; later implement
