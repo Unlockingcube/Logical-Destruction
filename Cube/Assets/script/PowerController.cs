@@ -149,7 +149,7 @@ public class PowerController : MonoBehaviour {
 			RaycastHit teleport;
             Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-            if (Physics.Raycast(transform.position, ray.direction,out teleport, 50))
+            if (Physics.Raycast(ray.origin, ray.direction,out teleport, 50))
             {
 				Vector3 playerOffest = teleport.point;
 				playerOffest.y += 1f;
