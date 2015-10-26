@@ -60,6 +60,31 @@ public class PowerController : MonoBehaviour {
         }
 			
 	}
+    void OnTriggerEnter(Collider Object)
+    {
+        //should change the power ups depending on what its coliding with. 
+        switch (Object.tag)
+        {
+            case "LightningPowerUp": power = Power.LIGHTNING;
+                PowerToggle(power);
+                SwapPower();
+                break;
+            case "FirePowerUp": power = Power.FIRE;
+                
+                SwapPower();
+                break;
+            case "EarthPowerUp": power = Power.EARTH;
+                PowerToggle(power);
+                SwapPower();
+                break;
+            case "IcePowerUP": power = Power.ICE;
+             
+                SwapPower();
+                break;
+            default: 
+                break;
+        }  
+    }
     void PowerToggle(Power tarPow)
     {
         if(power == tarPow)
