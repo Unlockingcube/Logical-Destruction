@@ -6,11 +6,11 @@ public class PowerController : MonoBehaviour {
     public Power power;
     public Material[] colors;
     public PhysicMaterial Ice,Normal,Earth;
-    [HideInInspector]
-    public Renderer rend;
+    private Renderer rend;
     public bool powerSwitch =true;
     public GameObject pc_Pcamera;
     public CameraControl pc_playerCameraController;
+	public GameObject target_circle;
     private MoveController move;
     private CapsuleCollider playerCollider;
     private Rigidbody playerBody;
@@ -51,40 +51,28 @@ public class PowerController : MonoBehaviour {
             PowerToggle(Power.EARTH);	
 		}
 
-        if (power == Power.LIGHTNING)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Teleport();
-            }
-        }
-			
+        if (power == Power.LIGHTNING) {
+			//
+			// Texture marker script
+			//
+			RaycastHit teleport;
+			Ray ray = pc_Pcamera.GetComponent<Camera> ().ScreenPointToRay (Input.mousePosition);
+			if (Physics.Raycast (ray.origin, ray.direction, out teleport, 50)) {
+				Vector3 playerOffest = teleport.point;
+				playerOffest.y += 5f;
+				target_circle.GetComponent<Projector> ().enabled = true;
+				target_circle.transform.position = playerOffest;
+			}
+			if (Input.GetMouseButtonDown (0)) {
+				Teleport ();
+			}
+		} else {
+			target_circle.GetComponent<Projector> ().enabled = false;
+		}
+		if (power == Power.EARTH) {	
+			EarthPower();
+		}
 	}
-    void OnTriggerEnter(Collider Object)
-    {
-        //should change the power ups depending on what its coliding with. 
-        switch (Object.tag)
-        {
-            case "LightningPowerUp": power = Power.LIGHTNING;
-                PowerToggle(power);
-                SwapPower();
-                break;
-            case "FirePowerUp": power = Power.FIRE;
-                
-                SwapPower();
-                break;
-            case "EarthPowerUp": power = Power.EARTH;
-                PowerToggle(power);
-                SwapPower();
-                break;
-            case "IcePowerUP": power = Power.ICE;
-             
-                SwapPower();
-                break;
-            default: 
-                break;
-        }  
-    }
     void PowerToggle(Power tarPow)
     {
         if(power == tarPow)
@@ -105,9 +93,9 @@ public class PowerController : MonoBehaviour {
         if (power == Power.NORMAL)
         {
             //undo the crap you did in the others basically.
-            pc_playerCameraController.mouseLock = true;
             move.immediateStop = true;
             move.control = true;
+			move.speedModifier = 1f;
             rend.material = colors[4];
             playerCollider.material = Normal;
             playerBody.mass = 10;
@@ -118,9 +106,9 @@ public class PowerController : MonoBehaviour {
             if (power == Power.ICE)
             {
                 //toggle something moveController to increase speed etc...
-                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = false;
                 move.control = true;
+				move.speedModifier = 1.5f;
                 rend.material = colors[0];
                 playerBody.mass = 10;
                 playerCollider.material = Ice;
@@ -129,9 +117,9 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.FIRE)
             {
                 //enable other crap;
-                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = true;
                 move.control = true;
+				move.speedModifier = 1f;
                 rend.material = colors[1];
                 playerBody.mass = 10;
                 playerCollider.material = Normal;
@@ -139,9 +127,10 @@ public class PowerController : MonoBehaviour {
             }
             else if (power == Power.LIGHTNING)
             {
-                pc_playerCameraController.mouseLock = false;
+
                 move.immediateStop = true;
                 move.control = true;
+				move.speedModifier = 1f;
                 rend.material = colors[2];
                 playerBody.mass = 10;
                 playerCollider.material = Normal;
@@ -150,9 +139,9 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.EARTH)
             {
                 //maybe apply downward force;
-                pc_playerCameraController.mouseLock = true;
                 move.immediateStop = true;
                 move.control = true;
+				move.speedModifier = .25f;
                 rend.material = colors[3];
                 playerBody.mass = 100;
                 playerCollider.material = Earth;
@@ -179,11 +168,20 @@ public class PowerController : MonoBehaviour {
 				Vector3 playerOffest = teleport.point;
 				playerOffest.y += 1f;
                 transform.position = playerOffest;
+				pc_lightningAmmo--;
             }else{
-				transform.position = ray.GetPoint(50);
+
 			}
-            pc_lightningAmmo--;
+            
         }
         //pc_playerCameraController release pivot; later implement
     }
+	private void EarthPower(){
+		RaycastHit down;
+		int layerMask = 1 << 8;
+		if(Physics.Raycast(transform.position,Vector3.down,out down, 1f, layerMask)){
+			//temp code
+			down.collider.gameObject.GetComponent<MoveAblePlatform>().move = true;
+		}
+	}
 }
