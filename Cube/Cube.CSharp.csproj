@@ -76,10 +76,12 @@
   <ItemGroup>
     <Compile Include="Assets\script\CameraControl.cs" />
     <Compile Include="Assets\script\KillZone.cs" />
+    <Compile Include="Assets\script\MoveAblePlatform.cs" />
     <Compile Include="Assets\script\MoveController.cs" />
     <Compile Include="Assets\script\Pivot.cs" />
     <Compile Include="Assets\script\PowerController.cs" />
     <Compile Include="Assets\script\QuestLog.cs" />
+    <Compile Include="Assets\script\pause.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\materials\NewSurfaceShader.shader" />
