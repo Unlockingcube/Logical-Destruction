@@ -81,6 +81,7 @@
     <Compile Include="Assets\script\Pivot.cs" />
     <Compile Include="Assets\script\PowerController.cs" />
     <Compile Include="Assets\script\QuestLog.cs" />
+    <Compile Include="Assets\script\pause.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\materials\NewSurfaceShader.shader" />
