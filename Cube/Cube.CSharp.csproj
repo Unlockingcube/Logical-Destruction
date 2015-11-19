@@ -93,6 +93,9 @@
     <Compile Include="Assets\script\Pivot.cs" />
     <Compile Include="Assets\script\PowerController.cs" />
     <Compile Include="Assets\script\QuestLog.cs" />
+    <Compile Include="Assets\script\RotationAni.cs" />
+    <Compile Include="Assets\script\RotationAniLeftDown.cs" />
+    <Compile Include="Assets\script\Sceen3MovementScript.cs" />
     <Compile Include="Assets\script\pause.cs" />
   </ItemGroup>
   <ItemGroup>

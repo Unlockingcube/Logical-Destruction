@@ -4,14 +4,14 @@ using System.Collections;
 public class pause : MonoBehaviour
 {
 
-    private bool paused = false;
+    private bool paused = true;
 
     public GUISkin mySkin;
 
     void Start()
     {
-
-
+        paused = true;
+        //you need this to be stated so your game does not start paused. 
     }
 
     void Update()
