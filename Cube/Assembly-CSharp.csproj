@@ -52,25 +52,23 @@
      <Compile Include="Assets\script\MoveController.cs" />
      <Compile Include="Assets\script\Pivot.cs" />
      <Compile Include="Assets\script\PowerController.cs" />
-     <Compile Include="Assets\script\QuestLog.cs" />
+     <Compile Include="Assets\script\QuestScripts\Quest.cs" />
+     <Compile Include="Assets\script\QuestScripts\QuestLog.cs" />
+     <Compile Include="Assets\script\QuestScripts\QuestObject.cs" />
+     <Compile Include="Assets\script\QuestScripts\QuestStep.cs" />
      <Compile Include="Assets\script\RotationAni.cs" />
      <Compile Include="Assets\script\RotationAniLeftDown.cs" />
      <Compile Include="Assets\script\Sceen3MovementScript.cs" />
+     <Compile Include="Assets\script\Timer.cs" />
      <Compile Include="Assets\script\pause.cs" />
      <None Include="Assets\materials\ProjectorLight.shader" />
      <None Include="Assets\materials\NewSurfaceShader.shader" />
      <None Include="Assets\materials\multipy.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
