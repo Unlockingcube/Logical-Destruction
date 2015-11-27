@@ -10,7 +10,7 @@ public class pause : MonoBehaviour
 
     void Start()
     {
-        paused = true;
+		OutPause ();
         //you need this to be stated so your game does not start paused. 
     }
 
