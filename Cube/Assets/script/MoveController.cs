@@ -33,7 +33,7 @@ public class MoveController : MonoBehaviour
     /// Movement Direction
     /// </summary>
 	void Update () {
-		Debug.Log ("WTF");
+		//Debug.Log ("WTF");
 		jump = Input.GetKeyDown (KeyCode.Space);
 	}
     void FixedUpdate()
@@ -44,11 +44,11 @@ public class MoveController : MonoBehaviour
 			stopModifier = 0.5f;
 		}
         //Cursor.lockState = CursorLockMode.Locked;
-		Debug.Log ("WTF");
+		//Debug.Log ("WTF");
         if (control)
 
         {
-			Debug.Log ("WTF");
+			//Debug.Log ("WTF");
 			CheckGround();
             //
             //Turn Controller

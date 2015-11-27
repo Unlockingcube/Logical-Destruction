@@ -5,7 +5,7 @@ public class QuestLog : MonoBehaviour {
     public string[] questLog = new string[1] { "Welcome: \n F for Ice \n V for Fire \n G For earth \n R for lightning" };
 	public int currentQuest = 0;
 	static public Quest[] questLog2 = new Quest[10];
-	static public int freeSpace = 0;
+	static public int filledSpace = 0;
 	// Use this for initialization
 	void Start () {
 
@@ -27,15 +27,15 @@ public class QuestLog : MonoBehaviour {
 		currentQuest = target;
 	}
 	static public void AddQuest(Quest quest){
-		questLog2 [freeSpace] = quest;
-		freeSpace++;
+		questLog2 [filledSpace] = quest;
+		filledSpace++;
 	}
 	static public void AddQuest(int target,Quest quest){
 		questLog2 [target] = quest;
 	}
 	static public bool AddQuestStep(string target,QuestStep questStep){
 		int i = 0;
-		while (i < questLog2.Length &&  !questLog2[i].questChain[questLog2[i].currentQuest].text.Equals(target)){
+		while (i < filledSpace &&  !questLog2[i].questChain[questLog2[i].currentQuest].text.Equals(target)){
 			i++;
 		}
 		if (i < questLog2.Length) {
@@ -44,5 +44,26 @@ public class QuestLog : MonoBehaviour {
 		}
 		else 
 			return false;
+	}
+	static public bool IncrementQuest(string target){
+		Debug.Log ("INCREMENTING QUEST" + target);
+		int i = 0;
+		while(i < filledSpace){
+			if(questLog2[i] != null)
+				if(!questLog2[i].QuestName.Equals(target))
+					i++;
+				else
+					break;
+		}
+		if (questLog2 [i] != null) {
+			questLog2 [i].incrementQuest ();
+			Debug.Log ("QUESTLOG:Increment Quest Returned True");
+			return true;
+
+		} else {
+			Debug.Log ("QUESTLOG:Increment Quest Returned false");
+			return false;
+		}
+
 	}
 }

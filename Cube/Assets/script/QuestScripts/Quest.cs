@@ -21,7 +21,12 @@ public class Quest : MonoBehaviour{
 		currentQuest = target;
 	}
 	public void incrementQuest(){
-		currentQuest++;
+		Debug.Log ("QUEST:increment quest was called");
+		if (currentQuest < questChain.Length - 1)
+			currentQuest++;
+		else {
+			Debug.Log ("QUEST:Why is this being called to many times");
+		}
 	}
 	//most likely never used
 	public void AddQuestStep(QuestStep target,int location){

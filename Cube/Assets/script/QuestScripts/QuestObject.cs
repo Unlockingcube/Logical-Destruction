@@ -32,15 +32,18 @@ public class QuestObject : MonoBehaviour {
 			kill = QuestLog.AddQuestStep(questTarget,questStep);
 			break;
 		case ObjectType.INCREMENT:
-
+			kill = QuestLog.IncrementQuest(questTarget);
+			Debug.Log("GAMEOBJECT:Increment Done");
 			break;
 		case ObjectType.QUESTTARGET:
 			break;
 		}
-		Debug.Log (kill);
 		if (kill) {
-			gameObject.GetComponent<BoxCollider>().enabled = false;
-			gameObject.GetComponent<MeshRenderer>().enabled = false;
+			Debug.Log ("Removing Object visibility and collider");
+			gameObject.GetComponent<BoxCollider> ().enabled = false;
+			gameObject.GetComponent<MeshRenderer> ().enabled = false;
+		} else {
+			Debug.Log ("not doing anything");
 		}
 
 	}
