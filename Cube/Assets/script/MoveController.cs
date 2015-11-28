@@ -144,5 +144,11 @@ public class MoveController : MonoBehaviour
 			player_body.useGravity = true;
 		}
 	}
+	public IEnumerator disable(){
+		control = false;
+		player_body.velocity = Vector3.zero;
+		yield return new WaitForSeconds (2f);
+		control = true;
+	}
 
 }
