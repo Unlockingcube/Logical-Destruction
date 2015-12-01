@@ -15,10 +15,12 @@ public class KillScript : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnTriggerEnter3D(Collider col)
+    void OnTriggerEnter(Collider col)
     {
+        Debug.Log("onTrigerEntering...");
         if(col.gameObject.tag == "Kill")
         {
+            Debug.Log("should respawn!");
             this.transform.position = startPos;
         }
     }

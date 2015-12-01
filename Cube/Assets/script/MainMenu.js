@@ -13,3 +13,7 @@ function Level2() {
 function Level3() {
     Application.LoadLevel ("scene3");
 }
+function FunTimesAllTimes() {
+    Application.LoadLevel ("scene5");
+}
+

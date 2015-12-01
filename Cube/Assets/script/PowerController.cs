@@ -4,6 +4,7 @@ using System.Collections;
 public class PowerController : MonoBehaviour {
     public enum Power { FIRE,ICE,LIGHTNING,EARTH,NORMAL};
     public Power power;
+    public int lightningPowerUpAmount = 2;
     public Material[] colors;
     public PhysicMaterial Ice,Normal,Earth;
     private Renderer rend;
@@ -14,7 +15,7 @@ public class PowerController : MonoBehaviour {
     private MoveController move;
     private CapsuleCollider playerCollider;
     private Rigidbody playerBody;
-    public static int pc_lightningAmmo = 100;
+    public static int pc_lightningAmmo = 0;
     static int pc_maxLightningAmmo = 100;
     
 	// Use this for initialization
@@ -183,5 +184,16 @@ public class PowerController : MonoBehaviour {
 			//temp code
 			down.collider.gameObject.GetComponent<MoveAblePlatform>().move = true;
 		}
-	}
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Light5")
+        {
+            
+            pc_lightningAmmo = lightningPowerUpAmount;
+            Destroy(col.gameObject);
+        }
+    }
 }
+
+
