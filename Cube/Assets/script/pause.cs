@@ -29,11 +29,13 @@ public class pause : MonoBehaviour
         {
             Cursor.visible = true;
             GUI.Box(new Rect(250, Screen.height - 200, 300, 400), "Whoah bro dis is tuff!");
-            if (GUI.Button(new Rect(350, Screen.height - 175, 85, 50), "Here we go!"))
+            GUI.Label(new Rect(350, Screen.height - 175, 85, 50), "Press E to Resume");
+            if(Input.GetKeyDown(KeyCode.E))
             {
                 togglePause();
             }
-            if (GUI.Button(new Rect(350, Screen.height - 100, 85, 50), "Im just done!"))
+            GUI.Label(new Rect(350, Screen.height - 100, 85, 50), "Press P to Quit");
+            if(Input.GetKeyDown(KeyCode.P))
             {
                 Application.Quit();
             }
