@@ -198,6 +198,11 @@ public class PowerController : MonoBehaviour {
             pc_lightningAmmo = lightningPowerUpAmount;
             Destroy(col.gameObject);
         }
+        if (col.gameObject.tag == "Finish")
+        {
+            PlaySound(0);
+            Application.LoadLevel("MainMenu");
+        }
     }
     void PlaySound(int clip)
     {
