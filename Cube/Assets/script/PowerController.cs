@@ -17,9 +17,9 @@ public class PowerController : MonoBehaviour {
     private Rigidbody playerBody;
     public static int pc_lightningAmmo = 0;
     static int pc_maxLightningAmmo = 100;
-    
-	// Use this for initialization
-	void Start () {
+    public AudioClip[] audioClips;
+    // Use this for initialization
+    void Start () {
         rend = GetComponent<Renderer>();
         rend.enabled = true;
         move = GetComponent<MoveController>();
@@ -94,6 +94,7 @@ public class PowerController : MonoBehaviour {
         if (power == Power.NORMAL)
         {
             //undo the crap you did in the others basically.
+            PlaySound(1);
             move.immediateStop = true;
             move.control = true;
 			move.speedModifier = 1f;
@@ -107,6 +108,7 @@ public class PowerController : MonoBehaviour {
             if (power == Power.ICE)
             {
                 //toggle something moveController to increase speed etc...
+                PlaySound(1);
                 move.immediateStop = false;
                 move.control = true;
 				move.speedModifier = 1.5f;
@@ -118,6 +120,7 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.FIRE)
             {
                 //enable other crap;
+                PlaySound(1);
                 move.immediateStop = true;
                 move.control = true;
 				move.speedModifier = 1f;
@@ -128,7 +131,7 @@ public class PowerController : MonoBehaviour {
             }
             else if (power == Power.LIGHTNING)
             {
-
+                PlaySound(1);
                 move.immediateStop = true;
                 move.control = true;
 				move.speedModifier = 1f;
@@ -140,6 +143,7 @@ public class PowerController : MonoBehaviour {
             else if (power == Power.EARTH)
             {
                 //maybe apply downward force;
+                PlaySound(1);
                 move.immediateStop = true;
                 move.control = true;
 				move.speedModifier = .25f;
@@ -161,7 +165,8 @@ public class PowerController : MonoBehaviour {
     {
         if (pc_lightningAmmo > 0)
         {
-			RaycastHit teleport;
+            PlaySound(2);
+            RaycastHit teleport;
             Ray ray = pc_Pcamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
             if (Physics.Raycast(ray.origin, ray.direction,out teleport, 50))
@@ -189,10 +194,18 @@ public class PowerController : MonoBehaviour {
     {
         if(col.gameObject.tag == "Light5")
         {
-            
+            PlaySound(0);  
             pc_lightningAmmo = lightningPowerUpAmount;
             Destroy(col.gameObject);
         }
+    }
+    void PlaySound(int clip)
+    {
+
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = audioClips[clip];
+        audio.Play();
+
     }
 }
 

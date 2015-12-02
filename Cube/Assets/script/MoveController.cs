@@ -21,6 +21,7 @@ public class MoveController : MonoBehaviour
 	[HideInInspector]public float speedModifier = 1.0f;
 	public Vector3 move;
 	private bool jump = false;
+    public AudioClip[] audioClips;
     // Use this for initialization
     void Start()
     {
@@ -127,8 +128,12 @@ public class MoveController : MonoBehaviour
 	void JumpControl(){
 		if (onGround && GetComponent<PowerController>().power!=PowerController.Power.EARTH)
 		{
-			player_body.velocity=new Vector3(player_body.velocity.x, jumpForce, player_body.velocity.z);
+            Debug.Log("Yo");
+            PlaySound(0);
+            Debug.Log("Yo");
+            player_body.velocity=new Vector3(player_body.velocity.x, jumpForce, player_body.velocity.z);
 			onGround = false;
+            
 		}
 	}
 	void CheckGround(){
@@ -150,5 +155,13 @@ public class MoveController : MonoBehaviour
 		yield return new WaitForSeconds (2f);
 		control = true;
 	}
+    void PlaySound(int clip)
+    {
+
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = audioClips[clip];
+        audio.Play();
+
+    }
 
 }
