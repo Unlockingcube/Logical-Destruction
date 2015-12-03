@@ -152,7 +152,7 @@ public class MoveController : MonoBehaviour
 	public IEnumerator disable(){
 		control = false;
 		player_body.velocity = Vector3.zero;
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (.5f);
 		control = true;
 	}
     void PlaySound(int clip)

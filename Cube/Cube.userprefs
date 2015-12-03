@@ -1,12 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\QuestScripts\QuestObject.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\QuestScripts\QuestLog.cs">
     <Files>
-      <File FileName="Assets\script\QuestScripts\QuestObject.cs" Line="43" Column="59" />
-      <File FileName="Assets\script\QuestScripts\Quest.cs" Line="26" Column="4" />
-      <File FileName="Assets\script\QuestScripts\QuestLog.cs" Line="64" Column="25" />
-      <File FileName="Assets\script\MoveAblePlatform.cs" Line="28" Column="3" />
-      <File FileName="Assets\script\MoveController.cs" Line="51" Column="6" />
+      <File FileName="Assets\script\QuestScripts\QuestLog.cs" Line="5" Column="49" />
+      <File FileName="Assets\script\respawn\RespawnController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\respawn\SpikeScripts.cs" Line="1" Column="1" />
+      <File FileName="Assets\lockDoor.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\MoveController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\QuestScripts\QuestObject.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\QuestScripts\Quest.cs" Line="1" Column="1" />
+      <File FileName="Assets\Key.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\PowerController.cs" Line="1" Column="1" />
+      <File FileName="Assets\PowerUpRespawn.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

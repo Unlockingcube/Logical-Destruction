@@ -36,6 +36,8 @@ public class QuestObject : MonoBehaviour {
 			Debug.Log("GAMEOBJECT:Increment Done");
 			break;
 		case ObjectType.QUESTTARGET:
+			QuestLog.SetQuestStep(questTarget,target);
+			kill = false;
 			break;
 		}
 		if (kill) {

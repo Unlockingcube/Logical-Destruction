@@ -17,4 +17,9 @@ public class SpikeScripts : MonoBehaviour {
 			collision.gameObject.GetComponent<RespawnController>().Respawn();
 		}
 	}
+	void OnTriggerEnter(Collider coll) {
+		if(coll.gameObject.name.Equals("Player")){
+			coll.gameObject.GetComponent<RespawnController>().Respawn();
+		}
+	}
 }
