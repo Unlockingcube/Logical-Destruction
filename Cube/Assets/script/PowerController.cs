@@ -18,6 +18,7 @@ public class PowerController : MonoBehaviour {
     public static int pc_lightningAmmo = 0;
     static int pc_maxLightningAmmo = 100;
     public AudioClip[] audioClips;
+    private float iceMod = 1.9f;
     // Use this for initialization
     void Start () {
         rend = GetComponent<Renderer>();
@@ -35,7 +36,8 @@ public class PowerController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-		if (Input.GetKeyDown(KeyCode.F))
+ 
+        if (Input.GetKeyDown(KeyCode.F))
 		{
             PowerToggle(Power.ICE);
         }
@@ -111,7 +113,7 @@ public class PowerController : MonoBehaviour {
                 PlaySound(1);
                 move.immediateStop = false;
                 move.control = true;
-				move.speedModifier = 1.5f;
+				move.speedModifier = iceMod;
                 rend.material = colors[0];
                 playerBody.mass = 10;
                 playerCollider.material = Ice;
@@ -198,6 +200,22 @@ public class PowerController : MonoBehaviour {
             pc_lightningAmmo = lightningPowerUpAmount;
             Destroy(col.gameObject);
         }
+        if (col.gameObject.tag == "Finish")
+        {
+            PlaySound(0);
+            Application.LoadLevel("MainMenu");
+        }
+        if (col.gameObject.tag == "Ice" && power == Power.FIRE)
+        {
+            PlaySound(1);
+            Destroy(col.gameObject);
+        }
+        else
+        {
+            Vector3 pos; 
+            pos = transform.position;
+            this.transform.position = pos;
+        }
     }
     void PlaySound(int clip)
     {
@@ -207,6 +225,8 @@ public class PowerController : MonoBehaviour {
         audio.Play();
 
     }
+
+    
 }
 
 
