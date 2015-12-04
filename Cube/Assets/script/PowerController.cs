@@ -197,7 +197,7 @@ public class PowerController : MonoBehaviour {
         if(col.gameObject.tag == "Light5")
         {
             PlaySound(0);  
-            pc_lightningAmmo = lightningPowerUpAmount;
+            pc_lightningAmmo += lightningPowerUpAmount;
             Destroy(col.gameObject);
         }
         if (col.gameObject.tag == "Finish")

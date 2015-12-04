@@ -5,9 +5,31 @@ public class pause : MonoBehaviour
     private bool paused;
     public GUISkin mySkin;
     float time = 0f;
+    float quickesttime = 10000f;
 
     void Start()
     {
+        if (Application.loadedLevelName.Equals("scene1"))
+        {
+            if (PlayerPrefs.HasKey("scene1"))
+            {
+                quickesttime = PlayerPrefs.GetFloat("scene1");
+            }
+        }
+        if (Application.loadedLevelName.Equals("scene2"))
+        {
+            if (PlayerPrefs.HasKey("scene2"))
+            {
+                quickesttime = PlayerPrefs.GetFloat("scene2");
+            }
+        }
+        if (Application.loadedLevelName.Equals("scene3"))
+        {
+            if (PlayerPrefs.HasKey("scene3"))
+            {
+                quickesttime = PlayerPrefs.GetFloat("scene3");
+            }
+        }
         Time.timeScale = 1;
     }
 
@@ -20,11 +42,12 @@ public class pause : MonoBehaviour
         }
 
     }
-    
+
 
     void OnGUI()
     {
         GUI.Box(new Rect(10, 10, 100, 20), "Timer: " + time.ToString("0.0"));
+        GUI.Box(new Rect(10, 30, 100, 20), "Quick: " + quickesttime.ToString("0.0"));
         if (Input.GetKey(KeyCode.K))
         {
             //   Debug.Log("TEST K"+ Application.loadedLevelName);
@@ -52,9 +75,9 @@ public class pause : MonoBehaviour
         if (Time.timeScale == 0)
         {
             Cursor.visible = true;
-            GUI.Box(new Rect(300f, 150f,Screen.width/2, Screen.height/2), "Whoah bro dis is tuff!");
-            GUI.Label(new Rect(500,180f, Screen.height,Screen.width), "Press E to Resume");
-            if(Input.GetKeyDown(KeyCode.E))
+            GUI.Box(new Rect(300f, 150f, Screen.width / 2, Screen.height / 2), "Whoah bro dis is tuff!");
+            GUI.Label(new Rect(500, 180f, Screen.height, Screen.width), "Press E to Resume");
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 togglePause();
             }
@@ -64,11 +87,11 @@ public class pause : MonoBehaviour
                 Application.LoadLevel("MainMenu");
             }
             GUI.Label(new Rect(500, 220f, Screen.height, Screen.width), "Press P to Quit");
-            if(Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 Application.Quit();
             }
-          
+
             GUI.Label(new Rect(500, 240f, Screen.height, Screen.width), "Press N to Restart");
             if (Input.GetKeyDown(KeyCode.N))
             {
@@ -79,20 +102,45 @@ public class pause : MonoBehaviour
     }
     bool togglePause()
     {
-       if (Time.timeScale == 0)
-       {
-       //    Screen.lockCursor = true;
+        if (Time.timeScale == 0)
+        {
+            //    Screen.lockCursor = true;
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 1;
-           return (false);
-       }
-       else
-       {
+            return (false);
+        }
+        else
+        {
             Cursor.lockState = CursorLockMode.Locked;
-       //     Screen.lockCursor = false;
+            //     Screen.lockCursor = false;
             Time.timeScale = 0;
             return (true);
-       }
+        }
+    }
+    void OnTriggerEnter(Collider col)
+    {
+
+        if (col.gameObject.tag == "Finish")
+        {
+            if (time < quickesttime)
+            {
+                quickesttime = time;
+                if (Application.loadedLevelName.Equals("scene1"))
+                {
+
+                    PlayerPrefs.SetFloat("scene1", quickesttime);
+                }
+                if (Application.loadedLevelName.Equals("scene2"))
+                {
+                    PlayerPrefs.SetFloat("scene2", quickesttime);
+                }
+                if (Application.loadedLevelName.ToString().Equals("scene3"))
+                {
+
+                    PlayerPrefs.SetFloat("scene3", quickesttime);
+                }
+            }
+        }
     }
 
 }
