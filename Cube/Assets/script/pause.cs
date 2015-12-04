@@ -2,10 +2,9 @@
 using System.Collections;
 public class pause : MonoBehaviour
 {
-
     private bool paused;
-
     public GUISkin mySkin;
+    float time = 0f;
 
     void Start()
     {
@@ -14,6 +13,7 @@ public class pause : MonoBehaviour
 
     void Update()
     {
+        time += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = togglePause();
@@ -24,6 +24,7 @@ public class pause : MonoBehaviour
 
     void OnGUI()
     {
+        GUI.Box(new Rect(10, 10, 100, 20), "Timer: " + time.ToString("0.0"));
         if (Input.GetKey(KeyCode.K))
         {
             //   Debug.Log("TEST K"+ Application.loadedLevelName);
