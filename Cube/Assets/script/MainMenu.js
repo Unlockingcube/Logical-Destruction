@@ -1,5 +1,9 @@
 ﻿#pragma strict
 
+function Start(){
+   
+    Screen.lockCursor = false;
+}
 function QuitGame() {
     Debug.Log("game is exiting");
     Application.Quit();
